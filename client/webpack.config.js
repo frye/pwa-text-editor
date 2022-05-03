@@ -8,7 +8,8 @@ module.exports = () => {
     mode: 'development',
     entry: {
       main: './src/js/index.js',
-      install: './src/js/install.js'
+      install: './src/js/install.js',
+      editor: './src/js/editor.js',
     },
     output: {
       filename: '[name].bundle.js',
@@ -20,6 +21,12 @@ module.exports = () => {
         template: './index.html',
         title: 'Text Editor'
       }),
+
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: './src-sw.js',
+      }),
+
       new WebpackPwaManifest({
         name: 'Text Editor',
         short_name: 'Editor',
@@ -43,14 +50,14 @@ module.exports = () => {
       rules: [
         // TODO: Add CSS loaders and babel to webpack.
         {
-          test: /\.css$/,
+          test: /\.css$/i,
           use: [
             'style-loader',
             'css-loader'
           ]
         },
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
