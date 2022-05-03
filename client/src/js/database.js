@@ -1,4 +1,3 @@
-import res from 'express/lib/response';
 import { openDB } from 'idb';
 
 const initdb = async () =>
